@@ -5,6 +5,9 @@ authors = ["happy_shredder <contact@etage.io>"]
 edition = "2018"
 license = "GPL-3.0-or-later"
 description = "A robust, minimal library for parsing MIME documents."
+documentation = "https://docs.rs/crumble/"
+homepage = "https://git.sr.ht/~happy_shredder/crumble"
+repository = "https://git.sr.ht/~happy_shredder/crumble"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
