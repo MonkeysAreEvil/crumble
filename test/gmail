@@ -1,0 +1,65 @@
+Return-Path: <example@gmail.com>
+Delivered-To: example@example.com
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	by example.com (OpenSMTPD) with ESMTPS id ecf00d9e (TLSv1.2:ECDHE-RSA-CHACHA20-POLY1305:256:FAIL)
+	for <example@example.com>;
+	Tue, 10 Sep 2019 02:47:32 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id y91so15364419ede.9
+        for <example@example.com>; Mon, 09 Sep 2019 19:47:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=lw4nVU4tXnj+HUyblPpuT7Q2zwTdNrM3vDBj+iwz9SQ=;
+        b=pT2jMVu+581TAUDVdVuXaRvMdKY3QnrWOBtk9S4MacZFtbLrKwXEaxZGcoH2yl4xdF
+         duzdF4CItIGPKFR4hCUIQe2Vq0mdF42Z5XzECuVkzpoE+TWQ3A45LDvuaY9yxiGVZ/g3
+         ga+zQhibRirauw/zdudf5wWZx4CqQzNSY+USppi5VzvDCFbjAXeYXzzed9+8W23VWGN1
+         1zYkJZyg2WbEOMO/O2eueQ1w4y+qN4j+C37HzZeAOtv/h+00tCDQVEDg92pxC22hFm+b
+         sRuqOWmMvEtZ4swGH9etW75GUDaJWnHhf7yBHEsVq1EjfGLK6eVQ99JCSQxbv5z7/N+y
+         Oeug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=lw4nVU4tXnj+HUyblPpuT7Q2zwTdNrM3vDBj+iwz9SQ=;
+        b=HDw/x0yShakjbD6hNpC+uld/4fbOgtPJ3bJtlIXXrK9H4PpBiE+i5WO13yuJ6SNxAw
+         AqEqTxht0eIfdNcMHtLoHZMEPCHgiceHimeZm962wVj712bQD1f6uBljPtxpthBu2c16
+         9CUF+WzFRTQsGhU8gGw8xCcJmHnrzSmLgG+uAi7ZtPr5EP+3oQCxSwW2eogvZClsZqAW
+         kkRwO1MIv9DuDiYXdl8skyxKp6z454gV3wCeqJTUpGv1nTj9si0el3zGpedk+wq7RTYd
+         ckJWyLvoYkCfv8k8jFHBgxVuFyuGAW0+mWcF0Ot0nUl2HSL3Dhw2+g443yjUIoNqxs4n
+         dxtA==
+X-Gm-Message-State: APjAAAWr+Sa7oXMCi+FNGGXrYdDgM4U8mqQHzcFfWiAcNgeHyRw8ztxE
+	aq8d/m/G2XIOEYaVue4uEO3X5WeU1/LJWypBUrq6lbNb
+X-Google-Smtp-Source: APXvYqzdQ+PweDlRQyYOU3o3FKIXVdUk6k3MavmnXTcuK2Ys/CHsejBMWypV70FeZutcumhAjl3oalQmXv1rS6mFwjE=
+X-Received: by 2002:a17:906:7e52:: with SMTP id z18mr21792389ejr.114.1568083676851;
+ Mon, 09 Sep 2019 19:47:56 -0700 (PDT)
+MIME-Version: 1.0
+From: Example <example@gmail.com>
+Date: Tue, 10 Sep 2019 12:47:31 +1000
+Message-ID: <CAMUmi+mvKSB1x93x3su-+Yy1AvDNm2jFmgs6fVgMtGL35XuBCw@mail.gmail.com>
+Subject: Example
+To: example@example.com
+Content-Type: multipart/mixed; boundary="0000000000008a01e4059229eec0"
+
+--0000000000008a01e4059229eec0
+Content-Type: multipart/alternative; boundary="0000000000008a01e1059229eebe"
+
+--0000000000008a01e1059229eebe
+Content-Type: text/plain; charset="UTF-8"
+
+Hello, world!
+
+--0000000000008a01e1059229eebe
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr">Hello, world!<br></div>
+
+--0000000000008a01e1059229eebe--
+--0000000000008a01e4059229eec0
+Content-Type: image/png; name="Lenna_(test_image).png"
+Content-Disposition: attachment; filename="Lenna_(test_image).png"
+Content-Transfer-Encoding: base64
+Content-ID: <f_k0d8idqy0>
+X-Attachment-Id: f_k0d8idqy0
+
+<snip>
+
+--0000000000008a01e4059229eec0--

@@ -1,0 +1,102 @@
+Return-Path: <bounces+715912-0519-example=example.com@email.bandcamp.com>
+Delivered-To: example@example.com
+Received: from o3.email.bandcamp.com (o3.email.bandcamp.com [198.21.0.215])
+	by example.com (OpenSMTPD) with ESMTPS id a1fa99f4 (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256:NO)
+	for <example@example.com>;
+	Sun, 1 Sep 2019 18:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; 
+	d=email.bandcamp.com; 
+	h=from:to:subject:reply-to:mime-version:content-type; s=smtpapi; 
+	bh=GMq8o6onqHwkbKkFgqnrnpHezjc=; b=zdXYpJZGtSuUMv2xRDL3DhRYrQwXZ
+	U8crpl/b+TLRc+h/GZcddBH1Mw6kg+FAs5Nuy1npOE7d3zXACBDE95hya/RkcF8Q
+	ya7fvewMlGBBfw8ZFRhukaDnTYc9GdyWn/rd5K33a8g7QdlfVpeL++x5sFAcyfVO
+	VkPI6RaTPa89DM=
+Received: by filter0116p1iad2.sendgrid.net with SMTP id filter0116p1iad2-543-5D6C1235-13
+        2019-09-01 18:47:17.604755642 +0000 UTC m=+429561.889968037
+Received: from bandcamp.com (ef.82.3da9.ip4.static.sl-reverse.com [169.61.130.239])
+	by ismtpd0009p1sjc2.sendgrid.net (SG) with ESMTP id K7NdDks5Rp-hj6zekhaxVQ
+	for <example@example.com>; Sun, 01 Sep 2019 18:47:16.923 +0000 (UTC)
+From: Bandcamp <noreply@bandcamp.com>
+To: example <example@example.com>
+Subject: =?UTF-8?B?TmV3IGZyb20gTWFsb2thcnBhdGFuOiAiU3RyaWTFvmllIGRuaSIgcmVk?=
+Reply-To: <noreply@bandcamp.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="it_was_only_a_kiss"
+Message-ID: <K7NdDks5Rp-hj6zekhaxVQ@ismtpd0009p1sjc2.sendgrid.net>
+Date: Sun, 01 Sep 2019 18:47:17 +0000 (UTC)
+X-SG-EID: nBOqntU0yBFjPVlNdjQaY3wDu4yTqLEvn1WO8Aw6GMB2LHOJyurZxQWDoS1ERDO7yQvQFeG32M8BCi
+ laaSf8u02bkFHbT0Xv9H7gaVogCrkLtZogborUCORVUiPJGhw1UI+m13mfwglDAtiJrT1f96VpGs2T
+ wwX20QhrGjGO2pMraVi2fI6k33Jlzv+pQ6HNut2ksNDg06CgBBC6mnB3KA==
+
+This is a multi-part message in MIME format.
+--it_was_only_a_kiss
+Content-Type: text/plain; charset=utf-8
+content-transfer-encoding: quoted-printable
+
+=0D
+Greetings example,=0D
+=0D
+Malokarpatan just added "Strid=C5=BEie dni" red to Bandcamp, check it out a=
+t:=0D
+=0D
+http://malokarpatan.bandcamp.com/merch/strid-ie-dni-red?from=3Dfanpub_fb_me=
+rch=0D
+=0D
+=0D
+=0D
+=0D
+Enjoy!=0D
+=0D
+=0D
+Unfollow Malokarpatan by visiting:=0D
+=0D
+http://malokarpatan.bandcamp.com/fan_unsubscribe?band_id=3D1884471442&email=
+=3Dexample%40example.com&fan_id=3Dxxxxxx&sig=3Dxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx=
+2=0D
+=0D
+=0D
+
+
+--it_was_only_a_kiss
+Content-Type: text/html; charset=utf-8
+content-transfer-encoding: quoted-printable
+
+<div id=3D"msg" style=3D"color:#595959;font-family: 'Helvetica Neue',arial,=
+verdana,sans-serif;line-height:150%;padding:0;font-size:14px">=0D
+=0D
+<div style=3D"width:210px;min-height:158px;margin-bottom: 20px;">=0D
+    <a href=3D"http://malokarpatan.bandcamp.com/merch/strid-ie-dni-red?from=
+=3Dfanpub_fb_merch">=0D
+        <img style=3D"width:210px;min-height:158px;" src=3D"http://f0.bcbit=
+s.com/img/0017234612_36.jpg" alt=3D"&quot;Strid=C5=BEie dni&quot; red Art">=
+=0D
+    </a>=0D
+</div>=0D
+=0D
+Greetings example,=0D
+<br>=0D
+Malokarpatan just added <span style=3D"font-style: italic;">&quot;Strid=C5=
+=BEie dni&quot; red</span> to Bandcamp, <a href=3D"http://malokarpatan.band=
+camp.com/merch/strid-ie-dni-red?from=3Dfanpub_fb_merch" style=3D"color:#068=
+7f5;text-decoration:none;">check it out here</a>.=0D
+=0D
+=0D
+<br><br>=0D
+Enjoy!=0D
+<br><br>=0D
+<a href=3D"http://bandcamp.com"><img src=3D"http://bandcamp.com/img/email/b=
+c-logo-small-2.gif" width=3D"105" height=3D"19" border=3D"0" alt=3D"bandcam=
+p logo"></a><br/>=0D
+<br>=0D
+<span style=3D"font-size:11px;border-top:1px dotted #ccc;width:95%;display:=
+block;padding:1em 0;margin:1em 0 0;"><a style=3D"color:#999;text-decoration=
+:none;font-size:11px;" href=3D"http://malokarpatan.bandcamp.com/fan_unsubsc=
+ribe?band_id=3D1884471442&amp;email=3Dexample%40example.com&amp;fan_id=3D27541=
+1&amp;sig=3D63babede6c4610d722c7828045462822">Unfollow Malokarpatan</a></sp=
+an>=0D
+<br>&nbsp;=0D
+</div>=0D
+
+
+--it_was_only_a_kiss--

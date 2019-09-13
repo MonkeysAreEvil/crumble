@@ -1,0 +1,48 @@
+Return-Path: <example@gmail.com>
+Delivered-To: example@example.com
+MIME-Version: 1.0
+From: Example <example@gmail.com>
+Date: Tue, 10 Sep 2019 12:47:31 +1000
+Message-ID: <CAMUmi+mvKSB1x93x3su-+Yy1AvDNm2jFmgs6fVgMtGL35XuBCw@mail.gmail.com>
+Subject: Example
+To: example@example.com
+Content-Type: multipart/mixed; boundary="boundary_A"
+
+--boundary_A
+Content-Type: multipart/alternative; boundary="boundary_B"
+
+Level A
+
+--boundary_B
+Content-Type: multipart/alternative; boundary="boundary_C1"
+
+Level B1
+
+--boundary_C1
+Content-Type: multipart/alternative; boundary="boundary_D1"
+
+Level C1
+
+--boundary_D1
+Content-Type: text/plain; charset="UTF-8"
+
+Level D1
+
+--boundary_D1--
+
+--boundary_C1--
+
+--boundary_B
+Content-Type: multipart/alternative; boundary="boundary_C2"
+
+Level B2
+
+--boundary_C2
+Content-Type: text/plain; charset="UTF-8"
+
+Level C2
+
+--boundary_C2--
+
+--boundary_B--
+--boundary_A--
