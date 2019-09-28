@@ -1,0 +1,32 @@
+MIME-Version: 1.0
+From: Example <example@gmail.com>
+Date: Tue, 10 Sep 2019 12:47:31 +1000
+Message-ID: <CAMUmi+mvKSB1x93x3su-+Yy1AvDNm2jFmgs6fVgMtGL35XuBCw@mail.gmail.com>
+Subject: Example
+To: example@example.com
+Content-Type: multipart/mixed; boundary="0000000000008a01e4059229eec0"
+
+--0000000000008a01e4059229eec0
+Content-Type: multipart/alternative; boundary="0000000000008a01e1059229eebe"
+
+--0000000000008a01e1059229eebe
+Content-Type: text/plain; charset="UTF-8"
+
+Hello, world!
+
+--0000000000008a01e1059229eebe
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr">Hello, world!<br></div>
+
+--0000000000008a01e1059229eebe--
+--0000000000008a01e4059229eec0
+Content-Type: image/png; name="Lenna_(test_image).png"
+Content-Disposition: attachment; filename="Lenna_(test_image).png"
+Content-Transfer-Encoding: base64
+Content-ID: <f_k0d8idqy0>
+X-Attachment-Id: f_k0d8idqy0
+
+<snip>
+
+--0000000000008a01e4059229eec0--

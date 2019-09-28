@@ -74,6 +74,56 @@ impl std::string::ToString for Header {
     }
 }
 
+trait Search {
+    fn search(&self, needle: &str) -> Option<String>;
+}
+
+impl Search for Vec<Header> {
+    fn search(&self, needle: &str) -> Option<String> {
+        for pair in self {
+            if pair.key.to_lowercase() == needle.to_lowercase() {
+                return Some(pair.value.to_string())
+            }
+        }
+        None
+    }
+}
+
+trait Boundary {
+    fn boundary(&self) -> Option<String>;
+}
+
+impl Boundary for Vec<Header> {
+    fn boundary(&self) -> Option<String> {
+        match self.search("Content-Type") {
+            None => return None,
+            Some(ct) => {
+                // https://tools.ietf.org/html/rfc1521#page-10
+                // First split off the type/subtype from the parameters
+                let tmp: Vec<&str> = ct.splitn(2, ";").collect();
+
+                // Now search the parameters
+                if tmp.len() > 1 {
+                    let tmp = tmp[1];
+                    let tmp: Vec<&str> = tmp.split(";").collect();
+                    for p in tmp {
+                        let parameter: Vec<&str> = p.split("=").collect();
+                        let key = parameter[0].trim().to_lowercase();
+                        let value = parameter[1].trim();
+                        let value = value.replace("\"", ""); // strip quotes
+                        let value = value.trim();
+
+                        if key == "boundary" {
+                            return Some(value.to_string())
+                        }
+                    }
+                }
+                return None
+            }
+        }
+    }
+}
+
 // Wrapper to avoid error.
 trait ToString {
     fn to_string(&self) -> String;
@@ -107,11 +157,23 @@ impl std::string::ToString for Section {
         match self {
             Section::Plain {body} => write!(&mut section_string, "{}", std::str::from_utf8(body).unwrap()).expect("Error constructing string."),
             Section::Multipart {headers, body} => {
-                write!(&mut section_string, "{}\n------------\n", headers.to_string()).expect("Error constructing string.");
+                write!(&mut section_string, "{}\n", headers.to_string()).expect("Error constructing string.");
+                let boundary = headers.boundary();
+                match &boundary {
+                    None => (),
+                    Some(b) => write!(&mut section_string, "--{}", b).expect("Error constructing string."),
+                };
                 for section in body {
                     write!(&mut section_string, "\n{}\n", section.to_string()).expect("Error constructing string.");
+                    match &boundary {
+                        None => (),
+                        Some(b) => write!(&mut section_string, "--{}", b).expect("Error constructing string."),
+                    };
                 }
-                write!(&mut section_string, "------------").expect("Error constructing string.");
+                match &boundary {
+                    None => (),
+                    Some(_b) => write!(&mut section_string, "--").expect("Error constructing string."),
+                };
             },
             Section::Empty => (),
         }
@@ -128,6 +190,9 @@ impl Section {
 
         // Catch leftover from multipart parsing
         if raw_section == "--\n" {
+            return Ok(Section::Empty);
+        }
+        if raw_section == "--" {
             return Ok(Section::Empty);
         }
 
@@ -174,10 +239,26 @@ impl Section {
 
         if Section::has_boundary(raw_section)? {
             lazy_static! {
-                static ref RE: Regex = Regex::new(r#"(boundary|Boundary)=("|')(?P<boundary>[[:print:]]+?)("|')"#).unwrap();
+                static ref RE: Regex = Regex::new(r#"(?m)(boundary|Boundary)=(("|')(?P<boundary1>[[:print:]]+?)("|')|(?P<boundary2>[[:print:]]+?($|;)))"#).unwrap();
             }
             let boundary = match RE.captures(raw_section) {
-                Some(c) => c["boundary"].to_string(),
+                Some(c) => {
+                    let boundary1 = match c.name("boundary1") {
+                        Some(s) => s.as_str().to_string(),
+                        None => String::new()
+                    };
+                    let boundary2 = match c.name("boundary2") {
+                        Some(s) => s.as_str().to_string(),
+                        None => String::new()
+                    };
+                    if boundary1.len() > 0 {
+                        boundary1
+                    } else if boundary2.len() > 0 {
+                        boundary2
+                    } else {
+                        String::new()
+                    }
+                },
                 None => String::new(),
             };
             if boundary.len() == 0 {
@@ -238,10 +319,23 @@ pub struct Message {
 impl std::string::ToString for Message {
     fn to_string(&self) -> String {
         let mut message = String::new();
-        write!(&mut message, "########################\n{}\n########################\n", self.headers.to_string()).expect("Error constructing string.");
+        write!(&mut message, "{}\n\n", self.headers.to_string()).expect("Error constructing string.");
+        let boundary = self.headers.boundary();
+        match &boundary {
+            None => (),
+            Some(b) => write!(&mut message, "--{}", b).expect("Error constructing string."),
+        };
         for section in &self.sections {
-            write!(&mut message, "{}\n########################\n", section.to_string()).expect("Error constructing string.");
+            write!(&mut message, "\n{}\n", section.to_string()).expect("Error constructing string.");
+            match &boundary {
+                None => (),
+                Some(b) => write!(&mut message, "--{}", b).expect("Error constructing string."),
+            };
         }
+        match boundary {
+            None => (),
+            Some(_b) => write!(&mut message, "--").expect("Error constructing string."),
+        };
         message
     }
 }

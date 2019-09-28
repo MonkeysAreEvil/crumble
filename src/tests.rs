@@ -35,8 +35,15 @@ fn prepare_multipart() -> String {
 }
 
 fn prepare_gmail() -> String {
-    // prepare_file("test/gmail")
+    prepare_file("test/gmail")
+}
+
+fn prepare_gmail_attachment() -> String {
     prepare_file("test/gmail_attachment")
+}
+
+fn prepare_gmail_alt() -> String {
+    prepare_file("test/gmail_alt")
 }
 
 fn prepare_bandcamp() -> String {
@@ -45,6 +52,10 @@ fn prepare_bandcamp() -> String {
 
 fn prepare_nested() -> String {
     prepare_file("test/nested")
+}
+
+fn prepare_pubkey() -> String {
+    prepare_file("test/pubkey")
 }
 
 #[test]
@@ -83,7 +94,7 @@ fn bench_multipart(b: &mut Bencher) {
 
 #[bench]
 fn bench_gmail(b: &mut Bencher) {
-    let message = prepare_gmail();
+    let message = prepare_gmail_attachment();
     b.iter(|| Message::new(&message));
 }
 
@@ -91,6 +102,83 @@ fn bench_gmail(b: &mut Bencher) {
 fn bench_bandcamp(b: &mut Bencher) {
     let message = prepare_bandcamp();
     b.iter(|| Message::new(&message));
+}
+
+#[test]
+fn build_plain() {
+    let plain = prepare_plain();
+    let message = Message::new(&plain).unwrap();
+    let reference = String::from(r#"message-id: <0123ABCD>
+subject: Hello, world!
+cc: user1@example.com,
+user2@example.com
+to: user3@example.com
+from: user4@example.com
+date: 1997-07-16T19:30:30+01:00
+x-mailer: Foo Corp Widgets 12.0.3.1.20 Build 2020040302
+type bar
+description baz
+x-mimetrack: Serialize by Foo
+mime-version: 1.0
+content-type: text/plain; charset=US-ASCII
+
+
+Hello user3,
+
+How is the world?
+How is the moon?
+How are the stars?
+
+Cheers
+user4
+"#);
+    assert_eq!(message.to_string(), reference);
+}
+
+#[test]
+fn build_gmail() {
+    let gmail = prepare_gmail_alt();
+    let message = Message::new(&gmail).unwrap();
+    let reference = String::from(r#"mime-version: 1.0
+from: Example <example@gmail.com>
+date: Tue, 10 Sep 2019 12:47:31 +1000
+message-id: <CAMUmi+mvKSB1x93x3su-+Yy1AvDNm2jFmgs6fVgMtGL35XuBCw@mail.gmail.com>
+subject: Example
+to: example@example.com
+content-type: multipart/mixed; boundary="0000000000008a01e4059229eec0"
+
+--0000000000008a01e4059229eec0
+content-type: multipart/alternative; boundary="0000000000008a01e1059229eebe"
+--0000000000008a01e1059229eebe
+content-type: text/plain; charset="UTF-8"
+
+Hello, world!
+
+
+
+--0000000000008a01e1059229eebe
+content-type: text/html; charset="UTF-8"
+
+<div dir="ltr">Hello, world!<br></div>
+
+
+
+--0000000000008a01e1059229eebe--
+--0000000000008a01e4059229eec0
+content-type: image/png; name="Lenna_(test_image).png"
+content-disposition: attachment; filename="Lenna_(test_image).png"
+content-transfer-encoding: base64
+content-id: <f_k0d8idqy0>
+x-attachment-id: f_k0d8idqy0
+
+<snip>
+
+
+
+--0000000000008a01e4059229eec0
+
+--0000000000008a01e4059229eec0--"#);
+    assert_eq!(message.to_string(), reference);
 }
 
 #[test]
@@ -108,7 +196,7 @@ fn parse_plain() {
             let mut headers_reference = Vec::new();
             headers_reference.push(Header::new("Message-ID", "<0123ABCD>"));
             headers_reference.push(Header::new("Subject", "Hello, world!"));
-            headers_reference.push(Header::new("Cc", "user1@example.com\nuser2@example.com"));
+            headers_reference.push(Header::new("Cc", "user1@example.com,\nuser2@example.com"));
             headers_reference.push(Header::new("To", "user3@example.com"));
             headers_reference.push(Header::new("From", "user4@example.com"));
             headers_reference.push(Header::new("Date", "1997-07-16T19:30:30+01:00"));
@@ -180,6 +268,9 @@ fn parse_multipart(){
             let section = Section::new(&body).unwrap();
             sections_reference.push(section);
 
+            let section = Section::new("--").unwrap();
+            sections_reference.push(section);
+
             assert_eq!(sections.len(), sections_reference.len());
             index = 0;
             for section in sections {
@@ -195,7 +286,7 @@ fn parse_gmail() {
     use std::io::prelude::*;
     use std::fs::File;
 
-    let multipart = prepare_gmail();
+    let multipart = prepare_gmail_attachment();
 
     let email = Message::new(&multipart);
 
@@ -286,6 +377,9 @@ x-attachment-id: f_k0d8idqy0"#;
             let tmp = String::from_utf8_lossy(&tmp);
             let body = format!("{}\n\n{}", body, tmp);
             let section = Section::new(&body).unwrap();
+            sections_reference.push(section);
+
+            let section = Section::new("--").unwrap();
             sections_reference.push(section);
 
             assert_eq!(sections.len(), sections_reference.len());
@@ -429,6 +523,9 @@ an>=0D
             let section = Section::new(&body).unwrap();
             sections_reference.push(section);
 
+            let section = Section::new("--").unwrap();
+            sections_reference.push(section);
+
             assert_eq!(sections.len(), sections_reference.len());
             index = 0;
             for section in sections {
@@ -517,6 +614,9 @@ Level B2"#)],
 
             sections_reference.push(section);
 
+            let section = Section::new("--").unwrap();
+            sections_reference.push(section);
+
             assert_eq!(sections.len(), sections_reference.len());
             index = 0;
             for section in sections {
@@ -526,4 +626,18 @@ Level B2"#)],
 
         }
     }
+}
+
+#[test]
+fn parse_pubkey() {
+    let message = prepare_pubkey();
+
+    let email = Message::new(&message);
+    // 
+    // match email {
+    //     Err(e) => panic!("Could not parse email: {:?}", e),
+    //     Ok(m) => {
+    // 
+    //     }
+    // }
 }
