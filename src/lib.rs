@@ -182,7 +182,7 @@ impl std::string::ToString for Section {
 }
 
 impl Section {
-    fn new(raw_section: &str) -> Result<Section, Box<dyn std::error::Error + 'static>> {
+    pub fn new(raw_section: &str) -> Result<Section, Box<dyn std::error::Error + 'static>> {
         // A section can either be just some plain text, or be split into headers/body.
         // That body is also section.
         // If the raw section has no headers, return it as plain
