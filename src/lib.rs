@@ -287,7 +287,7 @@ impl Section {
         } else {
             // Separate out headers
             lazy_static! {
-                static ref RE: Regex = Regex::new(r"\n{2,}|\r{2,}").unwrap();
+                static ref RE: Regex = Regex::new(r"\n{2,}|\r{2,}|(\r\n){2,}|(\n\r){2,}").unwrap();
             }
             let split: Vec<&str> = RE.splitn(raw_section, 2).collect();
             let raw_headers = split[0];
@@ -362,7 +362,7 @@ impl Message {
     fn parse_plain(raw_message: &str) -> Result<Message, Box<dyn std::error::Error + 'static>> {
         // Plain messages separate the headers from the body with more than 2 newlines
         lazy_static! {
-            static ref RE: Regex = Regex::new(r"\n{2,}|\r{2,}").unwrap();
+            static ref RE: Regex = Regex::new(r"\n{2,}|\r{2,}|(\r\n){2,}|(\n\r){2,}").unwrap();
         }
         let split: Vec<&str> = RE.splitn(raw_message, 2).collect();
 
