@@ -1,17 +1,17 @@
 From: John Doe <example@example.com>
 MIME-Version: 1.0
 Content-Type: multipart/mixed;
-    boundary='XXXXboundary text'
---XXXXboundary text
+    boundary='XXXXboundary_text'
+--XXXXboundary_text
 Content-Type: text/plain
 
 this is the body text
 
---XXXXboundary text
+--XXXXboundary_text
 Content-Type: text/plain
 Content-Disposition: attachment;
     filename='test.txt'
 
 this is the attachment text
 
---XXXXboundary text--
+--XXXXboundary_text--

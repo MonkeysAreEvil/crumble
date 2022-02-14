@@ -248,7 +248,7 @@ fn parse_multipart(){
             let mut headers_reference = Vec::new();
             headers_reference.push(Header::new("From", "John Doe <example@example.com>"));
             headers_reference.push(Header::new("MIME-Version", "1.0"));
-            headers_reference.push(Header::new("Content-Type", "multipart/mixed;\n    boundary='XXXXboundary text'"));
+            headers_reference.push(Header::new("Content-Type", "multipart/mixed;\n    boundary='XXXXboundary_text'"));
 
             assert_eq!(headers.len(), headers_reference.len());
             let mut index = 0;

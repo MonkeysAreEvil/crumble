@@ -239,27 +239,11 @@ impl Section {
 
         if Section::has_boundary(raw_section)? {
             lazy_static! {
-                static ref RE: Regex = Regex::new(r#"(?m)(boundary|Boundary)=(("|')(?P<boundary1>[[:print:]]+?)("|')|(?P<boundary2>[[:print:]]+?($|;)))"#).unwrap();
+                static ref RE: Regex = Regex::new(r#"(?m)(boundary|Boundary)=("|')?(?P<boundary>([[:alnum:]]|[-_=+,.<>])+)("|')?"#).unwrap();
             }
             let boundary = match RE.captures(raw_section) {
-                Some(c) => {
-                    let boundary1 = match c.name("boundary1") {
-                        Some(s) => s.as_str().to_string(),
-                        None => String::new()
-                    };
-                    let boundary2 = match c.name("boundary2") {
-                        Some(s) => s.as_str().to_string(),
-                        None => String::new()
-                    };
-                    if boundary1.len() > 0 {
-                        boundary1
-                    } else if boundary2.len() > 0 {
-                        boundary2
-                    } else {
-                        String::new()
-                    }
-                },
-                None => String::new(),
+                Some(c) => c["boundary"].to_string(),
+                None => return Err(Box::new(Error::InvalidString))
             };
             if boundary.len() == 0 {
                 return Err(Box::new(Error::ParseError));
@@ -387,7 +371,7 @@ impl Message {
         // Multipart messages separate parts using a boundary string, defined in the main headers
         // Any reasonable string after a `boundary="` is the boundary
         lazy_static! {
-            static ref RE: Regex = Regex::new(r#"(Boundary|boundary)=("|')(?P<boundary>[[:print:]]+?)("|')"#).unwrap();
+            static ref RE: Regex = Regex::new(r#"(?m)(boundary|Boundary)=("|')?(?P<boundary>([[:alnum:]]|[-_=+,.<>])+)("|')?"#).unwrap();
         }
         let b = match RE.captures(raw_message) {
             Some(c) => c["boundary"].to_string(),
