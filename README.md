@@ -4,7 +4,7 @@ A robust, minimal library for parsing mime documents. Supports UTF-8, multipart 
 
 # Usage
 
-Just add `crumble = "0.10.2"` to your dependencies. Then, given a String rep of a MIME document, parse with `Message::new(&mime)`.
+Just add `crumble = "0.11.1"` to your dependencies. Then, given a String rep of a MIME document, parse with `Message::new(&mime)`.
 
 Documentation: <https://docs.rs/crumble/>
 Crate: <https://crates.io/crates/crumble>
