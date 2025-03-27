@@ -17,7 +17,6 @@
 //! ```
 //! [1]: https://git.sr.ht/~happy_shredder/crinkle
 
-#![feature(test)]
 #[cfg(test)] mod tests;
 #[macro_use] extern crate lazy_static;
 

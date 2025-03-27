@@ -1,9 +1,6 @@
 #![cfg(test)]
 
-extern crate test;
-
 use super::{Message, Section, Header};
-use test::Bencher;
 
 fn prepare_file(filename: &str) -> String {
     use std::fs::File;
@@ -78,30 +75,6 @@ fn bad_string() {
         Ok(_) => panic!("Successfully parsed bad string"),
         Err(_e) => assert!(true) // InvalidString
     }
-}
-
-#[bench]
-fn bench_plain(b: &mut Bencher) {
-    let message = prepare_plain();
-    b.iter(|| Message::new(&message));
-}
-
-#[bench]
-fn bench_multipart(b: &mut Bencher) {
-    let message = prepare_multipart();
-    b.iter(|| Message::new(&message));
-}
-
-#[bench]
-fn bench_gmail(b: &mut Bencher) {
-    let message = prepare_gmail_attachment();
-    b.iter(|| Message::new(&message));
-}
-
-#[bench]
-fn bench_bandcamp(b: &mut Bencher) {
-    let message = prepare_bandcamp();
-    b.iter(|| Message::new(&message));
 }
 
 #[test]
